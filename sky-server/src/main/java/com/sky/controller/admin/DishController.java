@@ -36,6 +36,13 @@ public class DishController {
         return Result.success(pageResult);
     }
 
+    @GetMapping("/list")
+    @ApiOperation("套餐页分类查询菜品")
+    public Result<List<DishVO>> list(Long categoryId){
+        List<DishVO> dishVOs = dishService.listQuery(categoryId);
+        return Result.success(dishVOs);
+    }
+
     @DeleteMapping
     @ApiOperation("菜品批量删除")
     public Result delete(@RequestParam List<Long> ids){

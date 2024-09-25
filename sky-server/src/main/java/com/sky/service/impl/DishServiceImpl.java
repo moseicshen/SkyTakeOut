@@ -68,6 +68,11 @@ public class DishServiceImpl implements DishService {
         return new PageResult(total, dishes);
     }
 
+    public List<DishVO> listQuery(Long categoryId){
+        List<DishVO> dishVOs = dishMapper.listQuery(categoryId);
+        return dishVOs;
+    }
+
     public void deleteBatch(List<Long> ids){
         //是否正在起售
         for(Long id: ids){
@@ -77,7 +82,7 @@ public class DishServiceImpl implements DishService {
             }
         }
 
-        //是否被套餐关联
+        //是否跟套餐关联
         List<Long> setmealIds = setmealDishMapper.getSetmealIdsByDishIds(ids);
         if (setmealIds != null && setmealIds.size() > 0){
             throw new DeletionNotAllowedException(MessageConstant.SETMEAL_ON_SALE);
